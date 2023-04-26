@@ -1,10 +1,3 @@
-/*
- Created by Rui Santos
- 
- All the resources for this project:
- http://randomnerdtutorials.com/
-*/
-
 #include "LedControl.h"
 #include "binary.h"
 #include "MyLED.h"
@@ -55,7 +48,7 @@ photoValue = analogRead(photoResistor);
 if(photoValue > 600)
   imageState = 0;
 else{
-  imageState = 3;
+  imageState = 2;
 }
 displayImageByState(imageState);
   

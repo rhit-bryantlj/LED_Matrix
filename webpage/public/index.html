@@ -12,21 +12,31 @@
 
 <body>
     <h1>My LED Matrix Controller</h1>
-    <h2>Current Shown Image: </h2>
-    <div id="matrixImage">Smiley</div>
-    <div id="matrixButtonContainer">
+    <hr>
+    <div class="container">
+      <h3 style="display:inline;">Current Shown Image: </h3>
+      <div id="matrixImage" class="dataText" style="display:inline;">Smiley</div>
+    </div>
+    <div class="container">
       <button id = "smileyButton">Smiley</button>
       <button id = "frownyButton">Frowny</button>
       <button id = "pacmanButton">Pacman</button>
       <button id = "heartButton">Heart</button>
       <button id = "skullButton">Skull</button>
     </div>
-    <h2>Current Light Reading:</h2>
-    <div id="lightReadingNum">20</div>
-    <h2>Light Threshold: </h2>
-    <div id="lightThresholdVal">10</div>
-    <label> Update Threshold: </label><input id="thresholdUpdateInput" type="text" placeholder="256" value="">
-    <button id = "thresholdUpdateButton">Update</button>
+    <hr>
+    <div class="container">
+      <h3 style="display:inline;">Light Threshold: </h3>
+      <div id="lightThresholdVal" class="dataText" style="display:inline;">10</div>
+    </div>
+    <div class="container">
+      <h3 style="display:inline;">Current Light Reading:</h3>
+      <div id="lightReadingNum" class="dataText" style="display:inline;">20</div>
+    </div>
+    <div class="container">
+      <label> Update Threshold: </label><input id="thresholdInput" type="text" placeholder="256" value="">
+      <button id = "thresholdUpdateButton">Update</button>
+    </div>  
 
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>
