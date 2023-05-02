@@ -14,7 +14,11 @@
     <h1>My LED Matrix Controller</h1>
     <hr>
     <div class="container">
-      <h3 style="display:inline;">Current Shown Image: </h3>
+      <h3 style="display:inline;">Device Matrix Status: </h3>
+      <div id="matrixStatus" class="dataText" style="display:inline;">OFF</div>
+    </div>
+    <div class="container">
+      <h3 style="display:inline;">Current Image: </h3>
       <div id="matrixImage" class="dataText" style="display:inline;">Smiley</div>
     </div>
     <div class="container">
@@ -27,14 +31,14 @@
     <hr>
     <div class="container">
       <h3 style="display:inline;">Light Threshold: </h3>
-      <div id="lightThresholdVal" class="dataText" style="display:inline;">10</div>
+      <div id="lightThresholdVal" class="dataText" style="display:inline;">400</div>
     </div>
     <div class="container">
       <h3 style="display:inline;">Current Light Reading:</h3>
-      <div id="lightReadingNum" class="dataText" style="display:inline;">20</div>
+      <div id="lightReadingNum" class="dataText" style="display:inline;">200</div>
     </div>
     <div class="container">
-      <label> Update Threshold: </label><input id="thresholdInput" type="text" placeholder="256" value="">
+      <label> Update Threshold: </label><input id="thresholdInput" type="number" placeholder="256" value="" min="1" max="1023">
       <button id = "thresholdUpdateButton">Update</button>
     </div>  
 

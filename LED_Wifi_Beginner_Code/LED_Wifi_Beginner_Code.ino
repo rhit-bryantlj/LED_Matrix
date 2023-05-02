@@ -1,14 +1,14 @@
 #include <WiFiEsp.h>
 #include <WiFiEspClient.h>
-//#include <WiFiEspUdp.h>
+#include <WiFiEspUdp.h>
 #include <SoftwareSerial.h>
 #include <PubSubClient.h>
 
 void reconnect_mqtt();
 
 // WiFi
-const char *ssid = "Pike Network";
-const char *password = "47WestRange47";
+const char *ssid = "network name";
+const char *password = "network pass";
 int status = WL_IDLE_STATUS;
 
 // setup the esp8266
@@ -21,7 +21,7 @@ SoftwareSerial esp8266 (rxPin, txPin);
 const char *mqtt_broker = "28e94f03abe74b9d9de34505c36588f8.s2.eu.hivemq.cloud";
 const char *topic = "LEDDevice1/test";
 const char *mqtt_username = "ledmatrixteam";
-const char *mqtt_password = "ECEIoTTeam08";
+const char *mqtt_password = "HivePassForL&J2023";
 const int mqtt_port = 8883;
 
 WiFiEspClient  espClient;
@@ -36,11 +36,11 @@ void setup() {
   // initialize esp module
   WiFi.init(&esp8266);
 
-  if(WiFi.status() == WL_NO_SHIELD){
-    Serial.println("WiFi shield not present");
-    // dont continue
-    while(1);
-  }
+//  if(WiFi.status() == WL_NO_SHIELD){
+//    Serial.println("WiFi shield not present");
+//    // dont continue
+//    while(1);
+//  }
 
   // attempt to connect to wifi network
   while( status != WL_CONNECTED) {

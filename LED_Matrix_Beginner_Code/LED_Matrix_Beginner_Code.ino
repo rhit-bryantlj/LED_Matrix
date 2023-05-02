@@ -1,4 +1,4 @@
-#include "LedControl.h"
+ #include "LedControl.h"
 #include "binary.h"
 #include "MyLED.h"
 
@@ -15,7 +15,7 @@ const int photoResistor = A5;
 unsigned int photoValue;
 
 void setup() {
-  Serial.begin(57600);
+  Serial.begin(9600);
   lc.shutdown(0,false);
   // Set brightness to a medium value
   lc.setIntensity(0,8);

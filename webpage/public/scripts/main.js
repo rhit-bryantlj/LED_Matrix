@@ -36,7 +36,9 @@ function main(){
 
     document.querySelector("#thresholdUpdateButton").onclick = (event) =>{
         let thresholdNum = document.querySelector("#thresholdInput").value;
-        document.querySelector("#lightThresholdVal").innerHTML = thresholdNum;
+        if(thresholdNum > 0 && thresholdNum < 1024){
+            document.querySelector("#lightThresholdVal").innerHTML = thresholdNum;
+        }
     };
 }
 
