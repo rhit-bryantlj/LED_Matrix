@@ -1,89 +1,60 @@
-#include <WiFiEsp.h>
-#include <WiFiEspClient.h>
-#include <WiFiEspUdp.h>
 #include <SoftwareSerial.h>
 #include <PubSubClient.h>
+#include <WiFi.h>
 
-void reconnect_mqtt();
-
-// WiFi
-const char *ssid = "network name";
-const char *password = "network pass";
-int status = WL_IDLE_STATUS;
-
-// setup the esp8266
-const byte rxPin = 2; // Wire this to Tx Pin of ESP8266
-const byte txPin = 3; // Wire this to Rx Pin of ESP8266
-// We'll use a software serial interface to connect to ESP8266
-SoftwareSerial esp8266 (rxPin, txPin);
-
-// MQTT Broker setup
-const char *mqtt_broker = "28e94f03abe74b9d9de34505c36588f8.s2.eu.hivemq.cloud";
-const char *topic = "LEDDevice1/test";
-const char *mqtt_username = "ledmatrixteam";
-const char *mqtt_password = "HivePassForL&J2023";
+const char* ssid = "Pike Network";
+const char* pass = "47WestRange47";
+const char* mqtt_server = "28e94f03abe74b9d9de34505c36588f8.s2.eu.hivemq.cloud";
 const int mqtt_port = 8883;
+const char* mqtt_username = "ledmatrixteam";
+const char* mqtt_password = "HivePassForL&J2023";
+const char* mqtt_client_id = "matrix1";
 
-WiFiEspClient  espClient;
-PubSubClient client(espClient);
+const char* mqtt_topic_pub = "Test/Message";
+const char* mqtt_topic_sub = "Test/Message";
+
+SoftwareSerial espSerial(2, 3);  // RX, TX pins for ESP-01 module
+WiFiClient wifiClient;
+PubSubClient mqttClient(wifiClient);
 
 void setup() {
-  // Initialize serial
-  Serial.begin(9600);
-  // Initialize serial for ESP module
-  esp8266.begin(9600);
+  Serial.begin(9600);     // initialize the serial communication on the Arduino board
+  espSerial.begin(9600); // initialize the serial communication on the ESP-01 module
 
-  // initialize esp module
-  WiFi.init(&esp8266);
-
-//  if(WiFi.status() == WL_NO_SHIELD){
-//    Serial.println("WiFi shield not present");
-//    // dont continue
-//    while(1);
-//  }
-
-  // attempt to connect to wifi network
-  while( status != WL_CONNECTED) {
-    Serial.print("Attempting to connect to WPA SSID: ");
-    Serial.println(ssid);
-    // try to connect
-    status = WiFi.begin(ssid,password);
-  }
-
-  Serial.println("Connected to wifi");
-
-  client.setServer(mqtt_broker, mqtt_port); 
-  client.setCallback(callback);
-
-}
-
-void callback(char *topic, byte *payload, unsigned int length) {
-  Serial.print("Message arrived in topic: ");
-  Serial.println(topic);
-  Serial.print("Message:");
-  for (int i = 0; i < length; i++) {
-      Serial.print((char) payload[i]);
-  }
-  Serial.println();
-  Serial.println("-----------------------");
+  mqttClient.setServer(mqtt_server, 8883); // set the MQTT server and port
+  mqttClient.setCallback(mqttCallback);          // set the callback function for MQTT events
 }
 
 void loop() {
-  if(!client.connected()){
-    reconnect_mqtt();
+  if (!mqttClient.connected()) { // check if not connected to MQTT server
+    reconnectMQTT();            // attempt to reconnect
   }
-  client.loop();
+  mqttClient.loop();             // handle MQTT events
+
+  // publish a message to the MQTT topic
+  mqttClient.publish(mqtt_topic_pub, "Hello, MQTT from Arduino!");
+
+  delay(5000);                   // wait 5 seconds before publishing the next message
 }
 
-void reconnect_mqtt() {
-  while (!client.connected()) {
-    String client_id = "esp8266-ledmatrix-test1";
-    Serial.println("Attempting MQTT connection...");
-    if(client.connect(client_id.c_str(),mqtt_username, mqtt_password)){
-      Serial.println("MQTT connected");
+void mqttCallback(char* topic, byte* payload, unsigned int length) {
+  // handle incoming MQTT message
+  Serial.println("Received message from MQTT server:");
+  for (int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
+}
+
+void reconnectMQTT() {
+  // attempt to connect to MQTT server
+  while (!mqttClient.connected()) {
+    if (mqttClient.connect(mqtt_client_id, mqtt_username, mqtt_password)) {
+      Serial.println("Connected to MQTT server");
+      mqttClient.subscribe(mqtt_topic_sub); // subscribe to MQTT topic
+    } else {
+      Serial.println("Failed to connect to MQTT server, retrying in 5 seconds...");
+      delay(5000);
     }
   }
-  // publish and subscribe
-  client.publish(topic, "hello hivemq");
-  client.subscribe(topic);
 }
