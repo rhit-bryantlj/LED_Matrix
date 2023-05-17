@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="styles/bootstrap-material-design.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <title>My LED Matrix Demo Page</title>
+
+  <!-- Include a script to connect to mqtt through websockets on the webpage to receive and send MQTT Updates -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <h1>LED Matrix Demo</h1>
+    <hr>
+    <h3>Matrix Display</h3>
+    <div id="matrixContainer">
+        <div class="rowcontainer" id="row1">
+            <span class="dot" id="dot00"></span>
+            <span class="dot" id="dot01"></span>
+            <span class="dot" id="dot02"></span>
+            <span class="dot" id="dot03"></span>
+            <span class="dot" id="dot04"></span>
+            <span class="dot" id="dot05"></span>
+            <span class="dot" id="dot06"></span>
+            <span class="dot" id="dot07"></span>        
+        </div>
+        <div class="rowcontainer" id="row2">
+            <span class="dot" id="dot10"></span>
+            <span class="dot" id="dot11"></span>
+            <span class="dot" id="dot12"></span>
+            <span class="dot" id="dot13"></span>
+            <span class="dot" id="dot14"></span>
+            <span class="dot" id="dot15"></span>
+            <span class="dot" id="dot16"></span>
+            <span class="dot" id="dot17"></span>         
+        </div>
+        <div class="rowcontainer" id="row3">
+            <span class="dot" id="dot20"></span>
+            <span class="dot" id="dot21"></span>
+            <span class="dot" id="dot22"></span>
+            <span class="dot" id="dot23"></span>
+            <span class="dot" id="dot24"></span>
+            <span class="dot" id="dot25"></span>
+            <span class="dot" id="dot26"></span>
+            <span class="dot" id="dot27"></span>         
+        </div>
+        <div class="rowcontainer" id="row4">
+            <span class="dot" id="dot30"></span>
+            <span class="dot" id="dot31"></span>
+            <span class="dot" id="dot32"></span>
+            <span class="dot" id="dot33"></span>
+            <span class="dot" id="dot34"></span>
+            <span class="dot" id="dot35"></span>
+            <span class="dot" id="dot36"></span>
+            <span class="dot" id="dot37"></span>         
+        </div>
+        <div class="rowcontainer" id="row5">
+            <span class="dot" id="dot40"></span>
+            <span class="dot" id="dot41"></span>
+            <span class="dot" id="dot42"></span>
+            <span class="dot" id="dot43"></span>
+            <span class="dot" id="dot44"></span>
+            <span class="dot" id="dot45"></span>
+            <span class="dot" id="dot46"></span>
+            <span class="dot" id="dot47"></span>         
+        </div>
+        <div class="rowcontainer" id="row6">
+            <span class="dot" id="dot50"></span>
+            <span class="dot" id="dot51"></span>
+            <span class="dot" id="dot52"></span>
+            <span class="dot" id="dot53"></span>
+            <span class="dot" id="dot54"></span>
+            <span class="dot" id="dot55"></span>
+            <span class="dot" id="dot56"></span>
+            <span class="dot" id="dot57"></span>         
+        </div>
+        <div class="rowcontainer" id="row7">
+            <span class="dot" id="dot60"></span>
+            <span class="dot" id="dot61"></span>
+            <span class="dot" id="dot62"></span>
+            <span class="dot" id="dot63"></span>
+            <span class="dot" id="dot64"></span>
+            <span class="dot" id="dot65"></span>
+            <span class="dot" id="dot66"></span>
+            <span class="dot" id="dot67"></span>         
+        </div>
+        <div class="rowcontainer" id="row8">
+            <span class="dot" id="dot70"></span>
+            <span class="dot" id="dot71"></span>
+            <span class="dot" id="dot72"></span>
+            <span class="dot" id="dot73"></span>
+            <span class="dot" id="dot74"></span>
+            <span class="dot" id="dot75"></span>
+            <span class="dot" id="dot76"></span>
+            <span class="dot" id="dot77"></span>         
+        </div>
+    </div>
+
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/popper.js"></script>
+  <script src="scripts/bootstrap-material-design.js"></script>
+  <script>
+    $("body").bootstrapMaterialDesign();
+  </script>
+  <script src="scripts/dots.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+
+</html>

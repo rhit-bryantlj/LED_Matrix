@@ -18,6 +18,16 @@ const char *topic = "Devices/matrix1/image";
 //const char* mqtt_user = "ledmatrixteam";
 //const char* mqtt_pass = "HivePassForL&J2023";
 
+void mqttCallback(char* topic, byte* payload, unsigned int length){
+  // handle incoming MQTT message
+  client.publish("Devices/matrix1/curLight", "30");
+  Serial.println("Received message from MQTT server:");
+  for (int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
+}
+
 void setup() {
   Serial.begin(9600);
   esp8266Serial.begin(9600);
@@ -32,28 +42,22 @@ void setup() {
 
   // connect to MQTT broker
   client.setServer(mqtt_server, port);
+  client.setCallback(mqttCallback);
 }
 
 void loop() {
   if(!client.connected()){
     connectToMQTT();
   } 
+//  client.setCallback(mqttCallback);
   // publish a message to the MQTT broker
 //  itoa(loops, numberArray,10);
 //  Serial.println(numberArray);
 //  client.publish("Devices/matrix1/curLight", numberArray);
-  
+    
     // handle MQTT messages
+    Serial.println("Looping...");
     client.loop();
-}
-
-void mqttCallback(char* topic, byte* payload, unsigned int length){
-  // handle incoming MQTT message
-  Serial.println("Received message from MQTT server:");
-  for (int i = 0; i < length; i++) {
-    Serial.print((char)payload[i]);
-  }
-  Serial.println();
 }
 
 void connectToMQTT(){

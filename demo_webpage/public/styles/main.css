@@ -1,0 +1,19 @@
+body {
+    background-color: #89CFF0;
+}
+
+h1, h3 {
+    text-align: center;
+}
+
+#matrixContainer{
+    text-align: center;
+}
+
+.dot {
+    height: 25px;
+    width: 25px;
+    background-color: gray;
+    border-radius: 50%;
+    display: inline-block;
+}

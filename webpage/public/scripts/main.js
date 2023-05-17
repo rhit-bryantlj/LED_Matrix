@@ -2,8 +2,8 @@ var imageText = "";
 var curentLight = 0;
 
 // Create a client instance
-// client = new Paho.MQTT.Client("28e94f03abe74b9d9de34505c36588f8.s2.eu.hivemq.cloud", Number(8884),"javascriptwebpages");
-client = new Paho.MQTT.Client("broker.hivemq.com", 8884, "clientid123456");
+client = new Paho.MQTT.Client("28e94f03abe74b9d9de34505c36588f8.s2.eu.hivemq.cloud", Number(8884),"javascriptwebpages");
+// client = new Paho.MQTT.Client("broker.hivemq.com", 8884, "clientid123456");
 
 // set callback handlers
 client.onConnectionLost = onConnectionLost;
@@ -18,6 +18,22 @@ function main(){
         console.log("publish smiley")
         imageText = "Smiley";
         updateImageText();
+    };
+
+    document.querySelector("#enableButton").onclick = (event) =>{
+      console.log("publish enable")
+      message = new Paho.MQTT.Message("Enable");
+      message.destinationName = "Devices/matrix1/status";
+      client.send(message);
+      document.querySelector("#matrixStatus").innerHTML = "Enabled";
+    };
+
+    document.querySelector("#disableButton").onclick = (event) =>{
+      console.log("publish disable")
+      message = new Paho.MQTT.Message("Disable");
+      message.destinationName = "Devices/matrix1/status";
+      client.send(message);
+      document.querySelector("#matrixStatus").innerHTML = "Disabled";
     };
 
     document.querySelector("#frownyButton").onclick = (event) =>{
@@ -68,7 +84,6 @@ function MQTTconnect(){
 function onConnect() {
   // Once a connection has been made, make a subscription and send a message.
   console.log("Connection successful, will now subscribe to topics");
-  client.subscribe("Devices/matrix1/status");
   client.subscribe("Devices/matrix1/curLight");
 }
 
@@ -84,9 +99,7 @@ function onMessageArrived(message) {
   console.log("Message Arrived: "+message.payloadString);
   console.log("Topic: " + message.destinationName);
 
-  if(message.destinationName === "Devices/matrix1/status"){
-    document.querySelector("#matrixStatus").innerHTML = message.payloadString;
-  }else if(message.destinationName === "Devices/matrix1/curLight"){
+  if(message.destinationName === "Devices/matrix1/curLight"){
     if(Number(message.payloadString) == NaN){
       console.log("Bad message received from mqtt: not a number format for data");
     } else{
