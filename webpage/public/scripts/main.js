@@ -2,8 +2,8 @@ var imageText = "";
 var curentLight = 0;
 
 // Create a client instance
-client = new Paho.MQTT.Client("28e94f03abe74b9d9de34505c36588f8.s2.eu.hivemq.cloud", Number(8884),"javascriptwebpages");
-// client = new Paho.MQTT.Client("broker.hivemq.com", 8884, "clientid123456");
+// client = new Paho.MQTT.Client("28e94f03abe74b9d9de34505c36588f8.s2.eu.hivemq.cloud", Number(8884),"javascriptwebpages");
+client = new Paho.MQTT.Client("broker.hivemq.com", 8884, "javascriptwebpageforledmatrix");
 
 // set callback handlers
 client.onConnectionLost = onConnectionLost;
